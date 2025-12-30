@@ -39,6 +39,9 @@
     qwen-code
 
     # Terminal Programs
+    alacritty
+    waybar
+    micro
     foot
     kitty
     neovim
@@ -63,13 +66,7 @@
     # Media
     mpv
     imv
-    mpc
-    rmpc
-    flac
-    flac2all
-    mediainfo
     qbittorrent
-    transmission_4
     
     # Network
     amneziawg-go
@@ -77,6 +74,8 @@
 
     # Web
     ungoogled-chromium
+    librewolf
+    firefox
     ayugram-desktop
 
     # Themes and Icons
@@ -89,8 +88,8 @@
     kdePackages.xdg-desktop-portal-kde
     
     # Flake Inputs
-    inputs.zen-browser.packages.x86_64-linux.default
-    inputs.photogimp.packages.${pkgs.system}.default
+    # inputs.zen-browser.packages.x86_64-linux.default
+    # inputs.photogimp.packages.${pkgs.system}.default
   ];
 
 }

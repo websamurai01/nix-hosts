@@ -8,6 +8,7 @@
 
   # --- Fonts ---
   fonts.packages = with pkgs; [
+    fixedsys-excelsior
     nerd-fonts.commit-mono
     commit-mono
     noto-fonts

@@ -1,0 +1,113 @@
+// ~/.config/waybar/config.jsonc
+[
+      {
+        "output": "DP-1", // <-- Убедитесь, что это ваш первый монитор
+        "layer": "top",
+        "position": "top",
+        "modules-left": ["hyprland/workspaces"],
+        "modules-center": ["hyprland/window"],
+        // --- ИЗМЕНИТЕ СТРОКУ НИЖЕ ---
+        "modules-right": ["custom/btc", "custom/ping", "custom/country", "hyprland/language", "pulseaudio", "network", "clock"],
+    
+        // --- ДОБАВЬТЕ НОВЫЕ МОДУЛИ НИЖЕ ---
+        "hyprland/language": {
+            "format": "{}",
+            "format-lang": "{short}" // Отображает "us", "ru" и т.д.
+        },
+        "custom/country": {
+            "exec": "curl --silent ipinfo.io/country",
+            "format": " {}", // Иконка глобуса
+            "interval": 3600 // Проверять раз в час
+        },
+        "custom/ping": {
+            // Команда получает только цифры пинга
+            "exec": "ping -c 1 -W 1 vie.valve.net | grep -oP 'time=\\K[0-9.]+'",
+            "format": " {} ms", // Иконка пинга
+            "interval": 1 // Каждую секунду
+        },
+        "custom/btc": {
+            "exec": "~/.config/waybar/scripts/btc_price.sh",
+            "format": "{}",
+            "return-type": "json", // Обязательно для работы классов
+            "interval": 10 // Каждые 10 секунд
+        },
+        // --- ДАЛЕЕ ИДУТ ВАШИ СТАРЫЕ МОДУЛИ ---
+        "hyprland/workspaces": {
+          "format": "{icon}",
+          "format-icons": { "default": "○", "active": "●" },
+          "on-click": "activate"
+        },
+        "hyprland/window": { "format": "{}" },
+        "pulseaudio": { "format": "{volume}% {icon}", "format-icons": { "default": ["", "", ""] } },
+        "network": { "format-wifi": "", "format-ethernet": "󰈀", "format-disconnected": "󰖪" },
+        "clock": { "format": "{:%H:%M}" }
+      },
+
+    // ===================================
+    // === КОНФИГУРАЦИЯ ДЛЯ МОНИТОРА 2 ===
+    // ===================================
+    {
+        "output": "HDMI-A-1", // <-- ВАШЕ ИМЯ ВТОРОГО МОНИТОРА
+        "layer": "top",
+        "position": "top",
+        "modules-left": ["hyprland/workspaces"],
+        "modules-center": ["hyprland/window"],
+        "modules-right": ["custom/weather", "memory", "cpu", "tray"],
+
+        "hyprland/workspaces": {
+            "format": "{icon}",
+            "format-icons": {
+                "default": "○",
+                "active": "●"
+            },
+            "on-click": "activate"
+        },
+        "hyprland/window": { "format": "{}" },
+        "memory": { "format": " {}%" },
+        "cpu": { "format": " {usage}%" },
+        "tray": { "icon-size": 18, "spacing": 10 }
+    }
+]
+```**Что мы сделали:**
+*   Мы создали массив `[...]`, содержащий два объекта `{...}`.
+*   Каждый объект — это конфигурация для одной панели.
+*   Ключевой параметр `"output": "ИМЯ_МОНИТОРА"` указывает Waybar, на каком мониторе рисовать эту панель.
+*   Waybar достаточно умен, чтобы модуль `hyprland/workspaces` автоматически показывал рабочие столы только для того монитора, на котором запущена панель.
+
+### Шаг 3: Обновляем горячие клавиши (`hyprland.conf`)
+
+Теперь нужно настроить удобное управление всеми 10 столами. Логично использовать `Alt` для первого монитора и другую клавишу (например, `SUPER` или "Win") для второго.
+
+Вернитесь в `~/.config/hypr/hyprland.conf` и обновите вашу секцию с горячими клавишами:
+
+```ini
+# --- ГОРЯЧИЕ КЛАВИШИ ДЛЯ РАБОЧИХ СТОЛОВ (ДУАЛ МОНИТОР) ---
+
+# --- Монитор 1 (Рабочие столы 1-5) ---
+bind = ALT, 1, workspace, 1
+bind = ALT, 2, workspace, 2
+bind = ALT, 3, workspace, 3
+bind = ALT, 4, workspace, 4
+bind = ALT, 5, workspace, 5
+
+# Перемещение окон на столы монитора 1
+bind = ALT SHIFT, 1, movetoworkspace, 1
+bind = ALT SHIFT, 2, movetoworkspace, 2
+bind = ALT SHIFT, 3, movetoworkspace, 3
+bind = ALT SHIFT, 4, movetoworkspace, 4
+bind = ALT SHIFT, 5, movetoworkspace, 5
+
+# --- Монитор 2 (Рабочие столы 6-10) ---
+# Используем SUPER (Win) + цифры
+bind = SUPER, 1, workspace, 6
+bind = SUPER, 2, workspace, 7
+bind = SUPER, 3, workspace, 8
+bind = SUPER, 4, workspace, 9
+bind = SUPER, 5, workspace, 10
+
+# Перемещение окон на столы монитора 2
+bind = SUPER SHIFT, 1, movetoworkspace, 6
+bind = SUPER SHIFT, 2, movetoworkspace, 7
+bind = SUPER SHIFT, 3, movetoworkspace, 8
+bind = SUPER SHIFT, 4, movetoworkspace, 9
+bind = SUPER SHIFT, 5, movetoworkspace, 10

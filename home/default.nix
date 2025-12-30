@@ -15,7 +15,7 @@
     ./modules/environment.nix
     ./modules/user.nix
 
-    ./modules/hardware.nix
+    ./modules/hardware-configuration.nix
     ./modules/nvidia.nix
 
     ./modules/networking.nix
@@ -28,8 +28,6 @@
 
     # Services
     # ./services/system/keyd.nix
-    ./services/tailscale.nix
-    ./services/mympd.nix
 
     # Scripts
     ../common/scripts/tilde-stow.nix

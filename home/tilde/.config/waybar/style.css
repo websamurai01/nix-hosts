@@ -1,0 +1,73 @@
+/* WAYBAR STYLE.CSS - MINIMALIST AESTHETIC */
+
+* {
+    font-family: "Symbols Nerd Font", "Fixedsys Excelsior 3.01", monospace, sans-serif;
+    font-size: 16px;
+    min-height: 0;
+}
+
+#waybar {
+    background-color: #000000;
+    color: #ffffff;
+    border-bottom: 2px solid #000000;
+    border-radius: 0px;
+}
+
+/* СТРОГИЙ СТИЛЬ: Устранение сжатия для кнопок рабочих столов */
+#workspaces button {
+    background-color: #000000;
+    color: #ffffff;
+    margin: 0 3px;
+    padding: 1px 10px;
+    min-width: 30px;
+    border-radius: 0px;
+    border: 1px solid #ffffff;
+}
+
+/* Active workspace styling */
+#workspaces button.active {
+    background-color: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+/* Occupied workspace styling */
+#workspaces button.occupied {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #888888;
+}
+
+/* Global Module Style (С фоном) */
+#custom-btc,
+#custom-ping,
+#custom-weather,
+#hyprland-language,
+#memory,
+#cpu,
+#hyprland-window {
+    background-color: #000000;
+    color: #ffffff;
+    margin: 0px 3px;
+    padding: 1px 10px;
+    border-radius: 0px;
+}
+
+/* Модули БЕЗ ФОНА */
+#network,
+#custom-country {
+    background-color: transparent;
+    color: #ffffff;
+    margin: 0px;
+    padding: 1px 3px;
+    border-radius: 0px;
+}
+
+/* Clock Highlight - BLACK BACKGROUND */
+#clock {
+    background-color: #000000;
+    color: #ffffff;
+    margin: 0px 3px;
+    padding: 1px 10px;
+    border-radius: 0px;
+}

@@ -1,0 +1,9 @@
+# ~/.config/alacritty/alacritty.yml
+
+font:
+  normal:
+    # Вставьте сюда ваше точное имя шрифта
+    family: "FixedSys Excelsior 3.01"
+
+  # Вы можете настроить размер шрифта
+  size: 12.0
