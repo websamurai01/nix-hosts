@@ -1,0 +1,9 @@
+[options]
+scaling_mode = shrink
+
+[binds]
+<Escape> = quit
+h = prev
+l = next
+j = nop
+k = nop

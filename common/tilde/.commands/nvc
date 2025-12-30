@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Quick access to ~/.config files
+
+if [ -z "$1" ]; then
+    exec nvim "$HOME/.config"
+fi
+
+TARGET="$HOME/.config/$1"
+
+exec nvim "$TARGET"

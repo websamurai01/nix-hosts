@@ -1,0 +1,5 @@
+singleton WindowTracker 1.0 WindowTracker.qml
+Bar 1.0 Bar.qml
+BarBlock 1.0 BarBlock.qml
+BarText 1.0 BarText.qml
+WindowIcon 1.0 WindowIcon.qml

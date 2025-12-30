@@ -1,0 +1,8 @@
+# xremap configuration
+keymap:
+  - name: Global Launch Trigger
+    remap:
+      Super-l:
+        remap:
+          v:
+            launch: ["nvim"]

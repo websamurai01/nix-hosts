@@ -1,0 +1,143 @@
+#![enable(implicit_some)]
+#![enable(unwrap_newtypes)]
+#![enable(unwrap_variant_newtypes)]
+(
+    address: "127.0.0.1:6600",
+    password: None,
+    theme: Some("neu"),
+    cache_dir: None,
+    on_song_change: None,
+    volume_step: 5,
+    max_fps: 30,
+    scrolloff: 0,
+    wrap_navigation: false,
+    enable_mouse: true,
+    enable_config_hot_reload: true,
+    status_update_interval_ms: 1000,
+    rewind_to_start_sec: None,
+    keep_state_on_song_change: true,
+    reflect_changes_to_playlist: false,
+    select_current_song_on_change: false,
+    ignore_leading_the: false,
+    browser_song_sort: [Disc, Track, Artist, Title],
+    directories_sort: SortFormat(group_by_type: true, reverse: false),
+    default_album_art_path: None,
+    album_art: (
+        method: Auto,
+        max_size_px: (width: 1920, height: 1920),
+        disabled_protocols: ["http://", "https://"],
+        vertical_align: Center,
+        horizontal_align: Center,
+    ),
+    keybinds: (
+        clear: true,
+        global: {
+            ":":       CommandMode,
+            "<Tab>":   NextTab,
+            "<S-Tab>": PreviousTab,
+            "1":       SwitchToTab("Queue"),
+            "2":       SwitchToTab("Genres"),
+            "3":       SwitchToTab("Artists"),
+            "z":       ToggleRepeat,
+            "x":       ToggleRandom,
+            "c":       ToggleConsume,
+            "v":       ToggleSingle,
+            "~":       ShowHelp,
+            "u":       Update,
+            "U":       Rescan,
+            "I":       ShowCurrentSongInfo,
+        },
+        navigation: {
+            "k":         Up,
+            "j":         Down,
+            "h":         Left,
+            "l":         Right,
+            "<Up>":      Up,
+            "<Down>":    Down,
+            "<Left>":    Left,
+            "<Right>":   Right,
+            "<C-k>":     PaneUp,
+            "<C-j>":     PaneDown,
+            "<C-h>":     PaneLeft,
+            "<C-l>":     PaneRight,
+            "<C-u>":     UpHalf,
+            "N":         PreviousResult,
+            "a":         AddReplace,
+            "A":         Add,
+            "g":         Top,
+            "G":         Bottom,
+            "<CR>":      Confirm,
+            "J":         MoveDown,
+            "/":         EnterSearch,
+            "<Esc>":     Close,
+            "K":         MoveUp,
+            "D":         Delete,
+            "B":         ShowInfo,
+        },
+        queue: {
+            "D":       DeleteAll,
+            "<CR>":    Play,
+            "d":       Delete,
+            "C":       JumpToCurrent,
+            "X":       Shuffle,
+        },
+    ),
+    search: (
+        case_sensitive: false,
+        ignore_diacritics: false,
+        search_button: false,
+        mode: Contains,
+        tags: [
+            (value: "any",         label: "Any Tag"),
+            (value: "artist",      label: "Artist"),
+            (value: "album",       label: "Album"),
+            (value: "albumartist", label: "Album Artist"),
+            (value: "title",       label: "Title"),
+            (value: "filename",    label: "Filename"),
+            (value: "genre",       label: "Genre"),
+        ],
+    ),
+    artists: (
+        album_display_mode: NameOnly,
+        album_sort_by: Name,
+        album_date_tags: [Date],
+    ),
+    tabs: [
+        (
+            name: "Queue",
+            pane: Split(
+                direction: Horizontal,
+                panes: [
+                    (
+                        size: "57",
+                        pane: Pane(Lyrics),
+                        alignment: Left
+                    ),
+                    (
+                        size: "100%",
+                        pane: Pane(AlbumArt),
+                        // borders: "ALL",
+
+                    ), 
+                    (
+                        size: "57",
+                        pane: Pane(Queue),
+                        alignment: Right
+                    ),
+                ],
+            ),
+        ),
+        (
+            name: "Genres",
+            pane: Pane(Browser(
+                root_tag: "genre",
+                separator: ";"
+            )), 
+        ),
+        (
+            name: "Artists",
+            pane: Pane(AlbumArtists),
+        ),
+    ],
+)
+

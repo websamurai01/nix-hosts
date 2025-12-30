@@ -1,0 +1,35 @@
+# Appearance
+font=CommitMono Nerd Font 13
+width=300
+height=200
+outer-margin=0
+margin=24
+padding=12
+border-size=2
+border-radius=0
+icon-location=left
+text-alignment=left
+default-timeout=15000
+max-visible=2
+layer=overlay
+anchor=top-right
+
+# Interaction
+group-by=category
+on-button-left=invoke-default-action
+on-button-right=dismiss
+on-button-middle=dismiss-all
+
+# Colors (Matching Fuzzel Palette)
+background-color=#222222
+text-color=#d0d0d0
+border-color=#888888
+
+# Urgency overrides
+[urgency=high]
+border-color=#ea4335
+text-color=#d0d0d0
+background-color=#222222
+
+[grouped]
+format=<b>%s</b>\n%b

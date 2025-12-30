@@ -1,0 +1,30 @@
+{ ... }:
+
+{
+
+  # --- Input Remapping ---
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings = {
+        main = {
+          capslock = "esc";
+          rightshift = "backspace";
+          kp0 = "0";
+          kp1 = "1";
+          kp2 = "2";
+          kp3 = "3";
+          kp4 = "4";
+          kp5 = "5";
+          kp6 = "6";
+          kp7 = "7";
+          kp8 = "8";
+          kp9 = "9";
+          kpdot = ".";
+        };
+      };
+    };
+  };
+
+}
