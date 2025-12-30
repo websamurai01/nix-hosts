@@ -12,3 +12,6 @@ set -gx MODELSCOPE_API_KEY ms-93b44e83-aa5b-4f1c-a092-3605823f69c5
 
 # opencode
 fish_add_path /home/hash/.opencode/bin
+
+alias awgd='sudo killall amneziawg-go'
+alias awgr='sudo killall amneziawg-go & sudo awg-quick up $(find $HOME/VPN/awg/*.conf | shuf -n 1)'
