@@ -30,8 +30,6 @@ let
       if command -v repomix &> /dev/null; then
           gum join --horizontal ":: Repomixing " "$(g "${repoPath}...")"
           repomix --quiet
-          repomix --quiet --include "common/**,home/**"
-          repomix --quiet --include "common/**,lab/**"
       fi
     '';
   };
