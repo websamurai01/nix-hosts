@@ -1,12 +1,14 @@
 [Default Applications]
 application/zip=userapp-unzip-BF37D3.desktop
-application/x-zerosize=micro.desktop
+application/x-zerosize=micro-alacritty.desktop
 x-scheme-handler/tg=userapp-AyuGram Desktop-XAXFG3.desktop
 x-scheme-handler/tonsite=userapp-AyuGram Desktop-S7GFG3.desktop
 video/mp4=mpv.desktop
 application/vnd.rar=userapp-7z-WZZFE3.desktop
 application/x-7z-compressed=userapp-7z-WZZFE3.desktop
 video/webm=mpv.desktop
+
+# Текстовые файлы -> Micro в Alacritty
 text/plain=micro-alacritty.desktop
 text/x-chdr=micro-alacritty.desktop
 text/x-csrc=micro-alacritty.desktop
@@ -38,10 +40,12 @@ application/yaml=micro-alacritty.desktop
 application/xml=micro-alacritty.desktop
 application/x-yaml=micro-alacritty.desktop
 text/x-tex=micro-alacritty.desktop
+text/css=micro-alacritty.desktop
+text/html=micro-alacritty.desktop
 
 [Added Associations]
 application/zip=org.gnome.FileRoller.desktop;userapp-7z-WZZFE3.desktop;userapp-unzip-BF37D3.desktop;
-application/x-zerosize=micro.desktop;
+application/x-zerosize=micro-alacritty.desktop;
 x-scheme-handler/tg=org.telegram.desktop.desktop;userapp-AyuGram Desktop-XAXFG3.desktop;
 x-scheme-handler/tonsite=org.telegram.desktop.desktop;userapp-AyuGram Desktop-S7GFG3.desktop;
 video/mp4=mpv.desktop;vlc.desktop;
@@ -55,4 +59,5 @@ video/webm=mpv.desktop;
 video/x-flv=mpv.desktop;
 text/plain=micro-alacritty.desktop;micro.desktop;
 text/html=micro-alacritty.desktop;
-text/csv=micro-alacritty.desktop;firefox.desktop;
+text/csv=micro-alacritty.desktop;
+application/json=micro-alacritty.desktop;

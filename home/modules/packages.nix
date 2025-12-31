@@ -5,6 +5,8 @@
   environment.systemPackages = with pkgs; [
 
     # System
+    polkit_gnome
+    curl
     git
     wget
     stow
@@ -17,12 +19,15 @@
     wtype
     wev
     xorg.xhost
-    # pulseaudio
+	pwvucontrol
     gnome-disk-utility
     bluez
     blueman
     sshfs
-
+    
+	# Social
+	ayugram-desktop
+	
     # Desktop
     fuzzel
     quickshell
@@ -36,9 +41,12 @@
     wl-clipboard
     peazip
     bitwarden-desktop
-    qwen-code
+
+    #Gaming
+    steam
 
     # Terminal Programs
+    neofetch
     alacritty
     waybar
     micro
@@ -73,10 +81,7 @@
     amneziawg-tools
 
     # Web
-    ungoogled-chromium
-    librewolf
     firefox
-    ayugram-desktop
 
     # Themes and Icons
     nwg-look

@@ -1,7 +1,7 @@
 /* WAYBAR STYLE.CSS - MINIMALIST AESTHETIC */
 
 * {
-    font-family: "Symbols Nerd Font", "Fixedsys Excelsior 3.01", monospace, sans-serif;
+    font-family: "Symbols Nerd Font", "Fixedsys Excelsior 3.01", "Noto Color Emoji", monospace, sans-serif;
     font-size: 16px;
     min-height: 0;
 }

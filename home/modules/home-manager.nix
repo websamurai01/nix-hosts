@@ -15,6 +15,7 @@
 
         ./theme.nix
         ../services/hm/swww.nix
+        ../services/hm/polkit_gnome.nix
         # ../services/hm/wlsunset.nix
         ../services/hm/quickshell.nix
         # ../services/hm/xremap.nix

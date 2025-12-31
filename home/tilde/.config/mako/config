@@ -1,35 +1,52 @@
 # Appearance
-font=CommitMono Nerd Font 13
-width=300
-height=200
+# Используем тот же шрифт, что и в терминале/waybar, но чуть меньше (12px)
+font=Fixedsys Excelsior 3.01 10
+width=350
+height=150
+
+# Отступы и расположение
 outer-margin=0
-margin=24
-padding=12
+margin=20
+padding=15
+
+# Границы (Стиль Waybar: острые углы, контрастная обводка)
 border-size=2
 border-radius=0
-icon-location=left
-text-alignment=left
-default-timeout=15000
-max-visible=2
-layer=overlay
+
+# Расположение
 anchor=top-right
+layer=overlay
 
 # Interaction
+default-timeout=5000
+max-visible=5
 group-by=category
 on-button-left=invoke-default-action
 on-button-right=dismiss
 on-button-middle=dismiss-all
 
-# Colors (Matching Fuzzel Palette)
-background-color=#222222
-text-color=#d0d0d0
-border-color=#888888
+# --- Colors (Waybar Match) ---
+# Черный фон, Белый текст, Белая рамка (высокий контраст)
+background-color=#000000
+text-color=#ffffff
+border-color=#ffffff
 
-# Urgency overrides
+# Прогресс-бар (например, громкость)
+progress-color=over #ffffff
+
+# --- Urgency overrides ---
+
+# Low urgency (чуть серее)
+[urgency=low]
+border-color=#888888
+text-color=#cccccc
+
+# High urgency (Красная рамка, как в твоем foot.ini regular1)
 [urgency=high]
 border-color=#ea4335
-text-color=#d0d0d0
-background-color=#222222
+text-color=#ffffff
+background-color=#000000
+default-timeout=0
 
 [grouped]
 format=<b>%s</b>\n%b

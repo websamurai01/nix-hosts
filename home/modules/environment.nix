@@ -20,7 +20,8 @@
     GTK_USE_PORTAL = "1";
     QT_QPA_PLATFORMTHEME = "qt6ct";
     
-    EDITOR = "nvim";
+    EDITOR = "micro";
+    TERMINAL = "alacritty";
 
     PATH = [
       "$HOME/.commands"
