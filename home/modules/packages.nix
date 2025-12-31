@@ -17,7 +17,7 @@
     wtype
     wev
     xorg.xhost
-    pulseaudio
+    # pulseaudio
     gnome-disk-utility
     bluez
     blueman
