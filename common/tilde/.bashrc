@@ -14,6 +14,9 @@ alias uvr='env PYTHONDONTWRITEBYTECODE=1 uv run'
 alias awgd='sudo killall amneziawg-go'
 alias awgr='sudo killall amneziawg-go & sudo awg-quick up $(find $HOME/VPN/awg/*.conf | shuf -n 1)'
 
+# Video AI Analysis
+alias video-ai='cd ~/video-ai-project && nix-shell'
+alias analyze-video='cd ~/video-ai-project && nix-shell --run "python video_analyzer.py"'
 alias ipcheck='curl ip-api.com/line'
 
 gitsync() {

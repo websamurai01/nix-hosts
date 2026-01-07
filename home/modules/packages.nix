@@ -24,9 +24,20 @@
     bluez
     blueman
     sshfs
-    
+    veracrypt
+    uv
+
+    #Devs
+    obsidian
+    vscodium
+    yt-dlp
+    ffmpeg
+
+
+  
 	# Social
 	ayugram-desktop
+	discord
 	
     # Desktop
     fuzzel
@@ -64,7 +75,7 @@
 
     # CLI Programs
     repomix
-
+	
     # Rust Utils
     ripgrep
     bat
@@ -81,6 +92,7 @@
     amneziawg-tools
 
     # Web
+    tor-browser
     firefox
 
     # Themes and Icons
