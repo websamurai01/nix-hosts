@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Simple MP3 to text transcription
+# Usage: transcribe <mp3_file> [output_file]
+
+set -e
+
+if [ -z "$1" ]; then
+    echo "Usage: transcribe <mp3_file> [output_file]"
+    echo "Example: transcribe audio.mp3 transcript.txt"
+    exit 1
+fi
+
+INPUT_FILE="$1"
+OUTPUT_FILE="${2:-transcript.txt}"
+
+# Check dependencies
+if ! command -v python3 &> /dev/null; then
+    echo "Error: python3 is not installed"
+    exit 1
+fi
+
+if ! python3 -c "import whisper" 2>/dev/null && ! python3 -c "import whisper_ctranslate2" 2>/dev/null; then
+    echo "Error: whisper is not installed"
+    echo "Install with: pip install openai-whisper"
+    echo "Or faster: pip install whisper-ctranslate2"
+    exit 1
+fi
+
+echo "Transcribing: $INPUT_FILE"
+echo "Output: $OUTPUT_FILE"
+
+# Simple Python script for transcription
+python3 -c "
+import sys
+try:
+    import whisper_ctranslate2 as whisper
+except ImportError:
+    import whisper
+
+model = whisper.load_model('base')
+result = model.transcribe('$INPUT_FILE', language='ru', verbose=True)
+
+with open('$OUTPUT_FILE', 'w', encoding='utf-8') as f:
+    f.write(result['text'])
+
+print(f'✓ Saved {len(result[\"text\"])} characters to $OUTPUT_FILE')
+"

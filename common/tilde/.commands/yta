@@ -1,0 +1,156 @@
+#!/usr/bin/env bash
+# Quick YouTube audio downloader
+# Usage: yta <youtube_url>
+
+set -e
+
+OUTPUT_DIR="${YTA_OUTPUT:-$HOME/Music/YouTube}"
+COOKIES_FILE="${YTA_COOKIES:-$HOME/.config/youtube-cookies.txt}"
+mkdir -p "$OUTPUT_DIR"
+
+# Check dependencies
+check_deps() {
+    if ! command -v yt-dlp &> /dev/null; then
+        echo "Error: yt-dlp is not installed"
+        echo "Install it with: nix-shell -p yt-dlp"
+        exit 1
+    fi
+    
+    if ! command -v ffmpeg &> /dev/null; then
+        echo "Error: ffmpeg is not installed"
+        echo "Install it with: nix-shell -p ffmpeg"
+        exit 1
+    fi
+}
+
+# Check if cookies file exists and is valid
+check_cookies() {
+    if [ -f "$COOKIES_FILE" ] && [ -s "$COOKIES_FILE" ]; then
+        echo "🍪 Using cookies from: $COOKIES_FILE"
+        return 0
+    else
+        echo "⚠️  No cookies file found or file is empty"
+        echo "To create cookies file, run:"
+        echo "  yt-dlp --cookies-from-browser firefox"
+        echo "Or export manually from browser extension"
+        return 1
+    fi
+}
+
+print_help() {
+    echo "YouTube Audio Downloader (yta)"
+    echo "Usage: yta [OPTIONS] <youtube_url>"
+    echo ""
+    echo "Options:"
+    echo "  -o, --output DIR      Output directory (default: \$YTA_OUTPUT or ~/Music/YouTube)"
+    echo "  -c, --cookies FILE    Cookies file (default: \$YTA_COOKIES or ~/.config/youtube-cookies.txt)"
+    echo "  --no-cookies          Don't use cookies (may fail for age-restricted content)"
+    echo "  --browser BROWSER     Extract cookies from browser (firefox/chrome/brave)"
+    echo "  -h, --help            Show this help message"
+    echo ""
+    echo "Environment variables:"
+    echo "  YTA_OUTPUT           Default output directory"
+    echo "  YTA_COOKIES          Default cookies file path"
+    echo ""
+    echo "Examples:"
+    echo "  yta https://youtu.be/example"
+    echo "  YTA_OUTPUT=~/Podcasts yta https://youtube.com/watch?v=example"
+    echo "  yta --browser firefox https://youtube.com/watch?v=example"
+    echo "  yta --cookies ~/cookies.txt https://youtube.com/watch?v=example"
+}
+
+# Parse arguments
+USE_COOKIES=true
+BROWSER=""
+URL=""
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            print_help
+            exit 0
+            ;;
+        -o|--output)
+            OUTPUT_DIR="$2"
+            shift 2
+            ;;
+        -c|--cookies)
+            COOKIES_FILE="$2"
+            shift 2
+            ;;
+        --no-cookies)
+            USE_COOKIES=false
+            shift
+            ;;
+        --browser)
+            BROWSER="$2"
+            shift 2
+            ;;
+        -*)
+            echo "Error: Unknown option $1"
+            print_help
+            exit 1
+            ;;
+        *)
+            URL="$1"
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$URL" ]; then
+    echo "Error: YouTube URL is required"
+    print_help
+    exit 1
+fi
+
+check_deps
+
+echo "📥 Downloading audio from: $URL"
+echo "📁 Output directory: $OUTPUT_DIR"
+
+# Build yt-dlp command
+CMD="yt-dlp -x"
+
+# Add format options
+CMD="$CMD --audio-format mp3"
+CMD="$CMD --audio-quality 320k"
+CMD="$CMD --embed-thumbnail"
+CMD="$CMD --add-metadata"
+CMD="$CMD -o \"$OUTPUT_DIR/%(title)s.%(ext)s\""
+
+# Handle cookies
+if [ "$USE_COOKIES" = true ]; then
+    if [ -n "$BROWSER" ]; then
+        echo "🔐 Extracting cookies from $BROWSER browser..."
+        CMD="$CMD --cookies-from-browser $BROWSER"
+    elif check_cookies; then
+        CMD="$CMD --cookies \"$COOKIES_FILE\""
+    else
+        echo "⚠️  No cookies available, trying without..."
+        echo "   Some videos may fail to download"
+    fi
+fi
+
+# Add URL
+CMD="$CMD \"$URL\""
+
+echo ""
+echo "Running command:"
+echo "$CMD"
+echo ""
+
+# Execute command
+eval "$CMD"
+
+if [ $? -eq 0 ]; then
+    echo "✅ Done! Audio saved to: $OUTPUT_DIR"
+else
+    echo "❌ Failed to download audio"
+    echo ""
+    echo "Possible solutions:"
+    echo "1. Use cookies: yta --browser firefox $URL"
+    echo "2. Export cookies manually and use: yta --cookies /path/to/cookies.txt $URL"
+    echo "3. Try without cookies (may work for non-restricted videos): yta --no-cookies $URL"
+    exit 1
+fi

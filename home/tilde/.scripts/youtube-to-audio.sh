@@ -1,169 +1,60 @@
 #!/usr/bin/env bash
-
-# YouTube to Audio Downloader
-# Downloads video from YouTube and extracts audio track only
+# YouTube to Audio Downloader with cookies support
 
 set -e
 
 # --- Configuration ---
 DEFAULT_OUTPUT_DIR="$HOME/Music/YouTube"
+DEFAULT_COOKIES_FILE="$HOME/.config/youtube-cookies.txt"
 VALID_FORMATS=("mp3" "m4a" "opus" "flac" "wav")
 DEFAULT_FORMAT="mp3"
-QUALITY="320k"  # For MP3 format
-
-# --- Colors for output ---
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+QUALITY="320k"
 
 # --- Functions ---
 print_help() {
-    echo -e "${GREEN}YouTube to Audio Downloader${NC}"
+    echo "YouTube to Audio Downloader"
     echo "Usage: $0 [OPTIONS] <YouTube_URL>"
     echo ""
     echo "Options:"
     echo "  -o, --output DIR      Output directory (default: $DEFAULT_OUTPUT_DIR)"
     echo "  -f, --format FORMAT   Audio format: ${VALID_FORMATS[*]} (default: $DEFAULT_FORMAT)"
     echo "  -q, --quality QUALITY Audio quality (default: $QUALITY)"
+    echo "  -c, --cookies FILE    Cookies file for authentication"
+    echo "  --browser BROWSER     Extract cookies from browser (firefox/chrome/brave)"
+    echo "  --no-cookies          Don't use cookies"
     echo "  -p, --playlist        Download entire playlist"
-    echo "  -l, --list-formats    List available audio formats for the video"
+    echo "  -l, --list-formats    List available audio formats"
     echo "  -h, --help            Show this help message"
     echo ""
     echo "Examples:"
     echo "  $0 https://youtu.be/example"
-    echo "  $0 -f opus -o ~/Music/Classical https://youtube.com/watch?v=example"
-    echo "  $0 -p https://youtube.com/playlist?list=example"
+    echo "  $0 --browser firefox https://youtube.com/watch?v=example"
+    echo "  $0 --no-cookies -f opus -o ~/Music/Classical https://youtube.com/watch?v=example"
 }
 
 check_dependencies() {
-    local missing=()
-    
     if ! command -v yt-dlp &> /dev/null; then
-        missing+=("yt-dlp")
+        echo "Error: yt-dlp is not installed"
+        echo "Install it with: nix-shell -p yt-dlp"
+        exit 1
     fi
     
     if ! command -v ffmpeg &> /dev/null; then
-        missing+=("ffmpeg")
-    fi
-    
-    if [ ${#missing[@]} -gt 0 ]; then
-        echo -e "${RED}Error: Missing dependencies:${NC} ${missing[*]}"
-        echo "Install them with:"
-        echo "  nix-shell -p yt-dlp ffmpeg"
+        echo "Error: ffmpeg is not installed"
+        echo "Install it with: nix-shell -p ffmpeg"
         exit 1
     fi
 }
 
-validate_format() {
-    local format="$1"
-    for valid in "${VALID_FORMATS[@]}"; do
-        if [ "$format" = "$valid" ]; then
-            return 0
-        fi
-    done
-    return 1
-}
-
-create_output_dir() {
-    local dir="$1"
-    if [ ! -d "$dir" ]; then
-        echo -e "${YELLOW}Creating output directory: $dir${NC}"
-        mkdir -p "$dir"
-    fi
-}
-
-get_video_title() {
-    local url="$1"
-    yt-dlp --get-title --no-warnings "$url" 2>/dev/null | head -1
-}
-
-download_audio() {
-    local url="$1"
-    local output_dir="$2"
-    local format="$3"
-    local quality="$4"
-    local is_playlist="$5"
-    
-    echo -e "${BLUE}Processing:${NC} $url"
-    
-    # Get video title for display
-    local title
-    title=$(get_video_title "$url")
-    if [ -n "$title" ]; then
-        echo -e "${BLUE}Title:${NC} $title"
-    fi
-    
-    # Build yt-dlp command
-    local cmd="yt-dlp"
-    
-    # Add playlist option if needed
-    if [ "$is_playlist" = true ]; then
-        cmd="$cmd --yes-playlist"
-    else
-        cmd="$cmd --no-playlist"
-    fi
-    
-    # Configure output template
-    local output_template="$output_dir/%(title)s.%(ext)s"
-    
-    # Set format based on desired output
-    case "$format" in
-        mp3)
-            # Download best audio and convert to MP3
-            cmd="$cmd -x --audio-format mp3 --audio-quality $quality"
-            cmd="$cmd --embed-thumbnail --add-metadata"
-            cmd="$cmd -o '$output_template'"
-            ;;
-        m4a|opus|flac|wav)
-            # Download in specific format
-            cmd="$cmd -x --audio-format $format"
-            cmd="$cmd --embed-thumbnail --add-metadata"
-            cmd="$cmd -o '$output_template'"
-            ;;
-        *)
-            # Best available audio
-            cmd="$cmd -x --audio-format best"
-            cmd="$cmd --embed-thumbnail --add-metadata"
-            cmd="$cmd -o '$output_template'"
-            ;;
-    esac
-    
-    # Add the URL
-    cmd="$cmd '$url'"
-    
-    echo -e "${YELLOW}Downloading audio...${NC}"
-    echo -e "${BLUE}Command:${NC} $cmd"
-    echo ""
-    
-    # Execute the command
-    eval "$cmd"
-    
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓ Successfully downloaded audio${NC}"
-        echo -e "${GREEN}Output directory:${NC} $output_dir"
-    else
-        echo -e "${RED}✗ Failed to download audio${NC}"
-        return 1
-    fi
-}
-
-list_formats() {
-    local url="$1"
-    echo -e "${YELLOW}Available formats for:${NC} $url"
-    echo ""
-    yt-dlp -F "$url" | grep -E "audio only|video only" | head -20
-}
-
 # --- Main script ---
 main() {
-    # Check dependencies first
     check_dependencies
     
-    # Parse arguments
     local url=""
     local output_dir="$DEFAULT_OUTPUT_DIR"
+    local cookies_file=""
+    local browser=""
+    local use_cookies=true
     local format="$DEFAULT_FORMAT"
     local quality="$QUALITY"
     local is_playlist=false
@@ -181,16 +72,23 @@ main() {
                 ;;
             -f|--format)
                 format="$2"
-                if ! validate_format "$format"; then
-                    echo -e "${RED}Error: Invalid format '$format'${NC}"
-                    echo -e "Valid formats: ${VALID_FORMATS[*]}"
-                    exit 1
-                fi
                 shift 2
                 ;;
             -q|--quality)
                 quality="$2"
                 shift 2
+                ;;
+            -c|--cookies)
+                cookies_file="$2"
+                shift 2
+                ;;
+            --browser)
+                browser="$2"
+                shift 2
+                ;;
+            --no-cookies)
+                use_cookies=false
+                shift
                 ;;
             -p|--playlist)
                 is_playlist=true
@@ -201,7 +99,7 @@ main() {
                 shift
                 ;;
             -*)
-                echo -e "${RED}Error: Unknown option $1${NC}"
+                echo "Error: Unknown option $1"
                 print_help
                 exit 1
                 ;;
@@ -212,25 +110,70 @@ main() {
         esac
     done
     
-    # Validate URL
     if [ -z "$url" ]; then
-        echo -e "${RED}Error: YouTube URL is required${NC}"
+        echo "Error: YouTube URL is required"
         print_help
         exit 1
     fi
     
-    # Create output directory
-    create_output_dir "$output_dir"
-    
-    # List formats if requested
     if [ "$list_formats" = true ]; then
-        list_formats "$url"
+        echo "Available formats for: $url"
+        echo ""
+        CMD="yt-dlp -F \"$url\""
+        if [ "$use_cookies" = true ] && [ -n "$browser" ]; then
+            CMD="$CMD --cookies-from-browser $browser"
+        elif [ "$use_cookies" = true ] && [ -n "$cookies_file" ] && [ -f "$cookies_file" ]; then
+            CMD="$CMD --cookies \"$cookies_file\""
+        fi
+        eval "$CMD" | grep -E "audio only|video only" | head -20
         exit 0
     fi
     
-    # Download audio
-    download_audio "$url" "$output_dir" "$format" "$quality" "$is_playlist"
-}
-
-# Run main function
-main "$@"
+    mkdir -p "$output_dir"
+    
+    # Build command
+    CMD="yt-dlp"
+    
+    # Add playlist option
+    if [ "$is_playlist" = true ]; then
+        CMD="$CMD --yes-playlist"
+    else
+        CMD="$CMD --no-playlist"
+    fi
+    
+    # Add audio extraction options
+    CMD="$CMD -x"
+    
+    # Add format and quality
+    case "$format" in
+        mp3)
+            CMD="$CMD --audio-format mp3 --audio-quality $quality"
+            ;;
+        m4a|opus|flac|wav)
+            CMD="$CMD --audio-format $format"
+            ;;
+        *)
+            CMD="$CMD --audio-format best"
+            ;;
+    esac
+    
+    # Add metadata
+    CMD="$CMD --embed-thumbnail --add-metadata"
+    
+    # Add output template
+    CMD="$CMD -o \"$output_dir/%(title)s.%(ext)s\""
+    
+    # Handle cookies
+    if [ "$use_cookies" = true ]; then
+        if [ -n "$browser" ]; then
+            echo "🔐 Using cookies from $browser browser..."
+            CMD="$CMD --cookies-from-browser $browser"
+        elif [ -n "$cookies_file" ] && [ -f "$cookies_file" ]; then
+            echo "🍪 Using cookies from: $cookies_file"
+            CMD="$CMD --cookies \"$cookies_file\""
+        elif [ -f "$DEFAULT_COOKIES_FILE" ]; then
+            echo "🍪 Using default cookies from: $DEFAULT_COOKIES_FILE"
+            CMD="$CMD --cookies \"$DEFAULT_COOKIES_FILE\""
+        else
+            echo "⚠️  No cookies available, trying without..."
+            echo

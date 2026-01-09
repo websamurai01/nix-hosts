@@ -26,12 +26,15 @@
     sshfs
     veracrypt
     uv
+    nekoray
+    
 
     #Devs
     obsidian
     vscodium
     yt-dlp
     ffmpeg
+    python3
 
 
   
