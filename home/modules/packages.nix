@@ -49,6 +49,8 @@
     libnotify
     swww
     xremap
+    slurp
+    grim
     hyprshot
     hyprpicker
     wlsunset
