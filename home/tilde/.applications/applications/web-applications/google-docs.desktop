@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Docs
+GenericName=Word Processor
+Comment=Create and edit documents online via Firefox
+# Запускает Firefox в режиме нового окна с указанным URL
+Exec=firefox --new-window "https://docs.google.com"
+# Использует иконку google-docs (обычно есть в Papirus) или фаллбэк на firefox
+Icon=google-docs
+Terminal=false
+Categories=Office;WordProcessor;Network;
+StartupNotify=true
+MimeType=text/html;text/xml;application/xhtml+xml;

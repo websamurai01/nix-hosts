@@ -1,0 +1,14 @@
+[
+    {
+        "layer": "overlay",
+        "position": "top",
+        "height": 40,
+        "modules-center": ["custom/reminder"],
+        "custom/reminder": {
+            "exec": "cat /tmp/waybar_reminder.json",
+            "return-type": "json",
+            "interval": 1,
+            "format": "⚠️  {}  [{alt}]  ⚠️"
+        }
+    }
+]
