@@ -95,6 +95,7 @@
     # Network
     amneziawg-go
     amneziawg-tools
+    amnezia-vpn
 
     # Web
     tor-browser

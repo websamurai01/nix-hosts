@@ -7,8 +7,6 @@ video/mp4=mpv.desktop
 application/vnd.rar=userapp-7z-WZZFE3.desktop
 application/x-7z-compressed=userapp-7z-WZZFE3.desktop
 video/webm=mpv.desktop
-
-# Текстовые файлы -> Micro в Alacritty
 text/plain=micro-alacritty.desktop
 text/x-chdr=micro-alacritty.desktop
 text/x-csrc=micro-alacritty.desktop
@@ -53,8 +51,8 @@ video/x-matroska=mpv.desktop;vlc.desktop;
 image/jpeg=org.gnome.eog.desktop;feh.desktop;
 video/quicktime=vlc.desktop;
 application/vnd.appimage=gnome-disk-image-writer.desktop;
-application/vnd.rar=userapp-7z-WZZFE3.desktop;
-application/x-7z-compressed=org.gnome.FileRoller.desktop;userapp-7z-WZZFE3.desktop;
+application/vnd.rar=peazip-extract.desktop;peazip.desktop;userapp-7z-WZZFE3.desktop;
+application/x-7z-compressed=peazip.desktop;peazip-extract.desktop;org.gnome.FileRoller.desktop;userapp-7z-WZZFE3.desktop;
 video/webm=mpv.desktop;
 video/x-flv=mpv.desktop;
 text/plain=micro-alacritty.desktop;micro.desktop;

@@ -9,7 +9,7 @@
   };
 
   programs.fish.enable = true;
-
+  programs.amnezia-vpn.enable = true;
   programs.direnv = {
     enable = true;
     enableBashIntegration = true;

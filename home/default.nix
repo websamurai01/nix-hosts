@@ -29,6 +29,13 @@
     # Services
     # ./services/system/keyd.nix
 
+    # Web Applications
+    ./programs/web-applications/youtube.nix
+    ./programs/web-applications/photopea.nix
+    ./programs/web-applications/figma.nix
+	./programs/chromium.nix
+    ./services/chromium-service.nix
+    
     # Scripts
     ../common/scripts/tilde-stow.nix
     ../common/scripts/nrs.nix
