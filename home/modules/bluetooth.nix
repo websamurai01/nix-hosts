@@ -8,12 +8,11 @@
     powerOnBoot = true;
     settings = {
       General = {
-        AutoEnable = true;
-        Enable = "Source,Sink,Media,Socket";
-        AutoConnect = true;
-      };
-      Policy = {
-        AutoEnable = true;
+        # Включаем поддержку отображения заряда батареи наушников
+        Experimental = true;
+        
+        # Принудительно используем классический Bluetooth для аудио
+        ControllerMode = "bredr";
       };
     };
   };

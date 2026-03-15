@@ -1,17 +1,20 @@
 { config, pkgs, username, hostname, ... }:
 
 {
-
-  # environment.loginShellInit = ''
-  #   if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-  #      exec uwsm start default
-  #   fi
-  # '';
-
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
     
+    # ВОЗВРАЩАЕМ ЭТУ ПЕРЕМЕННУЮ! Без неё Hyprland и игры задыхаются
+    LIBVA_DRIVER_NAME = "nvidia";
+    XDG_SESSION_TYPE = "wayland";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    
+    MOZ_ENABLE_WAYLAND = "1";
+    MOZ_DISABLE_RDD_SANDBOX = "1";
+    NVD_BACKEND = "direct";
+
     XCURSOR_THEME = "Adwaita"; 
     XCURSOR_SIZE = "24";
 
@@ -31,7 +34,5 @@
     XDG_DATA_DIRS = [
       "$HOME/.applications"
     ];
-
   };
-
 }

@@ -27,7 +27,8 @@
     veracrypt
     uv
     nekoray
-    
+    nodejs_20
+    docker
 
     #Devs
     obsidian
