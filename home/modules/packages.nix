@@ -26,7 +26,7 @@
     sshfs
     veracrypt
     uv
-    nekoray
+    throne
     nodejs_20
     docker
 
@@ -36,6 +36,8 @@
     yt-dlp
     ffmpeg
     python3
+    docker
+    docker-compose
 
 
   

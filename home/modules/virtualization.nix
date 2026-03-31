@@ -1,12 +1,13 @@
 { pkgs, inputs, ... }:
 
 {
-
   virtualisation.containers.enable = true;
 
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
+    # ДОБАВЬ ЭТУ СТРОКУ:
+    dockerSocket.enable = true;
   };
   
   virtualisation.containers.containersConf.settings = {
@@ -19,5 +20,4 @@
       cgroup_manager = "systemd";
     };
   };
-
 }

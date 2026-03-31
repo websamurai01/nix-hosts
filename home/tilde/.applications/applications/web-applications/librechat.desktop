@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=LibreChat Toggle
+GenericName=AI Chat Interface
+Comment=Start/Stop local LibreChat services
+# Используем имя скрипта из Шага 1
+Exec=librechat-toggle
+# Можно использовать иконку нейросети, если есть, или стандартную
+Icon=virt-manager
+Terminal=false
+Categories=Network;WebBrowser;
+StartupNotify=true

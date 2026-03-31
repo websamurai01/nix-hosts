@@ -30,6 +30,7 @@
     # ./services/system/keyd.nix
 
     # Web Applications
+    ./programs/web-applications/librechat-toggle.nix
     ./programs/web-applications/youtube.nix
     ./programs/web-applications/photopea.nix
     ./programs/web-applications/figma.nix
