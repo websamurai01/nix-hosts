@@ -48,10 +48,11 @@
     };
 
   fileSystems."/mnt/drives/hdd500" =
-    { device = "/dev/disk/by-uuid/AC50BCE250BCB504";
-      fsType = "ntfs";
-      options = [ "nofail" "uid=1000" "gid=100" "rw" "user" "exec" "umask=000" ];
-    };
+        { device = "/dev/disk/by-uuid/AC50BCE250BCB504";
+          # Используем современный ядерный драйвер вместо медленного FUSE
+          fsType = "ntfs3"; 
+          options =[ "nofail" "uid=1000" "gid=100" "rw" "user" "exec" "umask=000" ];
+        };
 
   fileSystems."/mnt/drives/hdd250.1" =
     { device = "/dev/disk/by-uuid/e7b47531-8e65-4096-be54-ca0648b0fe62";

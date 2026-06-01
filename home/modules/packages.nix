@@ -5,6 +5,7 @@
   environment.systemPackages = with pkgs; [
 
     # System
+    unrar
     polkit_gnome
     curl
     git
@@ -75,7 +76,7 @@
     btop
     yazi
     ripdrag
-
+	
     # Virtualization
     distrobox
     runc
@@ -94,12 +95,13 @@
     mpv
     imv
     qbittorrent
+
     
     # Network
     amneziawg-go
     amneziawg-tools
     amnezia-vpn
-
+	v2raya
     # Web
     tor-browser
     firefox

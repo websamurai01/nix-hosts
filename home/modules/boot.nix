@@ -18,13 +18,12 @@
     "usbcore.autosuspend=-1" 
   ];
 
-  # --- Fix for System Lag (Dirty Pages) ---
-  # Золотая середина: 256 МБ (background) и 512 МБ (limit).
-  # Этого с головой хватит играм, чтобы не фризить, 
-  # и спасет от зависания ПК при загрузке 100 ГБ файлов на HDD.
+  # --- Fix for System Lag (Dirty Pages for SSD) ---
+  # Заставляем ядро сбрасывать данные на SSD маленькими порциями (64 МБ), 
+  # не дожидаясь накопления гигантских объемов. Это предотвращает статтеры UI.
   boot.kernel.sysctl = {
-    "vm.dirty_background_bytes" = "268435456";
-    "vm.dirty_bytes" = "536870912";
+    "vm.dirty_background_bytes" = "67108864";
+    "vm.dirty_bytes" = "268435456";
   };
 
 }
