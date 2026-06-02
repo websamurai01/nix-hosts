@@ -21,7 +21,7 @@
 
   services.gvfs.enable = true;
   services.tumbler.enable = true;
-  services.v2raya.enable = true
+  services.v2raya.enable = true;
 
   xdg.portal = {
     enable = true;
