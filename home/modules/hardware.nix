@@ -66,6 +66,11 @@
       options = [ "nofail" "subvol=@home" "compress=zstd" "noatime" "discard=async" "space_cache=v2" ];
     };
 
+  fileSystems."/mnt/drives/games" =
+    { device = "/dev/disk/by-uuid/f8c3594c-50f0-40ef-8a02-33fa6866c696";
+      fsType = "btrfs";
+      options = [ "nofail" "compress=zstd" "noatime" "space_cache=v2" ];
+    };
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

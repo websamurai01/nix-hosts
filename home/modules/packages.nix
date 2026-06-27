@@ -101,7 +101,6 @@
     amneziawg-go
     amneziawg-tools
     amnezia-vpn
-	v2raya
     # Web
     tor-browser
     firefox

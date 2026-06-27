@@ -22,6 +22,13 @@
   services.gvfs.enable = true;
   services.tumbler.enable = true;
   services.v2raya.enable = true;
+  	systemd.services.v2raya.path = 
+  pkgs.lib.mkForce (with pkgs; [
+  	iptables
+  	bash
+  	iproute2
+  	xray
+  ]);
 
   xdg.portal = {
     enable = true;
