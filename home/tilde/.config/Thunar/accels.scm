@@ -1,4 +1,4 @@
-; thunar GtkAccelMap rc-file         -*- scheme -*-
+; Thunar GtkAccelMap rc-file         -*- scheme -*-
 ; this file is an automated accelerator map dump
 ;
 ; (gtk_accel_path "<Actions>/ThunarStandardView/sort-by-type" "")
@@ -47,6 +47,7 @@
 ; (gtk_accel_path "<Actions>/ThunarWindow/close-all-windows" "<Primary><Shift>w")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/create-document" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/detach-tab" "")
+; (gtk_accel_path "<Actions>/ThunarBookmarks/6de65c86b00c3be2925b7250ebc72fd9" "")
 ; (gtk_accel_path "<Actions>/ThunarBookmarks/4f880c4eb20a57b5cc778353093a8077" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/cancel-search" "Escape")
 ; (gtk_accel_path "<Actions>/ThunarWindow/zoom-in-alt2" "<Primary>equal")
@@ -58,6 +59,7 @@
 ; (gtk_accel_path "<Actions>/ThunarWindow/view-location-selector-entry" "")
 ; (gtk_accel_path "<Actions>/ThunarActionManager/paste" "<Primary>v")
 ; (gtk_accel_path "<Actions>/ThunarWindow/zoom-in-alt1" "<Primary>KP_Add")
+; (gtk_accel_path "<Actions>/ThunarBookmarks/6fbaf320194e54bd00e201d441d57ed6" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/view-menubar" "<Primary>m")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/back" "<Alt>Left")
 ; (gtk_accel_path "<Actions>/ThunarWindow/open-desktop" "")

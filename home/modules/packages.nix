@@ -76,6 +76,7 @@
     btop
     yazi
     ripdrag
+	lazygit
 	
     # Virtualization
     distrobox
