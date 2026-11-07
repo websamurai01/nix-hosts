@@ -5,6 +5,8 @@
   environment.systemPackages = with pkgs; [
 
     # System
+    jdk21
+    android-studio
     unrar
     polkit_gnome
     curl
