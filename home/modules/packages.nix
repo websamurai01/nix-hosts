@@ -63,6 +63,7 @@
     wl-clipboard
     peazip
     bitwarden-desktop
+    cherry-studio
 
     #Gaming
     steam
